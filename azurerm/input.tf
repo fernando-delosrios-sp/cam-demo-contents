@@ -36,3 +36,9 @@ variable "domain" {
   type        = string
   default     = ""
 }
+
+variable cidr_block {
+  type        = string
+  default     = "10.0.0.0/8"
+  description = "CIDR main block"
+}
