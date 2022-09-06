@@ -14,5 +14,14 @@ resource "azurerm_cosmosdb_account" "cosmosdb_account" {
     max_staleness_prefix    = 100000
   }
   offer_type = "Standard"
+  # enable_free_tier = "true"
+  # capabilities = { "EnableTable" }
 
+}
+
+resource "azurerm_cosmosdb_sql_database" "cosmosdb_database" {
+  for_each            = toset(var.departments)
+  name                = lower(replace("${each.key}-${var.domain}", " ", "-"))
+  resource_group_name = "Global"
+  account_name        = azurerm_cosmosdb_account.cosmosdb_account[each.key].name
 }
